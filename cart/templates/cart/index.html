@@ -37,16 +37,16 @@
       <table>
         <td>
           <div class="text-start">
-            <a class="btn bg-dark text-white mb-2" href="{% url 'movies.index' %}">Keep Shopping</a>
+            <a class="navy-blue-hover-btn" href="{% url 'movies.index' %}">Keep Shopping</a>
           </div>
         </td>
         <td>
           <div class="text-end">
-            <a class="btn btn-outline-secondary mb-2"><b>Total:</b> ${{ template_data.cart_total }}</a>
+            <a class="hollow-btn"><b>Total:</b> ${{ template_data.cart_total }}</a>
             {% if template_data.movies_in_cart|length > 0 %}
-            <a href="{% url 'cart.purchase' %}" class="btn bg-dark text-white mb-2">Purchase</a>
+            <a href="{% url 'cart.purchase' %}" class="tech-gold-hover-btn">Purchase</a>
             <a href="{% url 'cart.clear' %}">
-            <button class="btn btn-danger mb-2">Remove all</button>
+            <button class="red-hover-btn">Remove all</button>
             </a>
             {% endif %}
           </div>

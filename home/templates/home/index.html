@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-<header class="masthead bg-index text-white text-center py-4">
+<header class="masthead bg-homepage text-white text-center py-4">
   <div class="container d-flex align-items-center flex-column pt-2">
-    <h2>Movies Store #2763</h2>
-    <p>Your Ticket to Limited Entertainment!</p>
+    <h2>GT Movies #2763</h2>
+    <p>Helluva Entertainment for a Helluva Engineer!</p>
   </div>
 </header>
 <div class="p-3">
   <div class="container">
     <div class="row mt-3">
       <div class="col mx-auto text-center mb-3">
-        <h4>Welcome to an absolutely mid movie store</h4>
+        <h4>Welcome to the movie store of all time</h4>
+        <p> {{ template_data.quote }} </p>
       </div>
     </div>
   </div>

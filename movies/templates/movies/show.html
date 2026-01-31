@@ -21,7 +21,7 @@
                 </div>
               </div>
               <div class="col-auto">
-                <button class="btn bg-dark text-white" type="submit">Add to cart</button>
+                <button class="tech-gold-hover-btn" type="submit">Add to cart</button>
               </div>
             </div>
           </form>
@@ -41,7 +41,7 @@
                       <textarea name="comment" required class="form-control" id="comment"></textarea>
                     </p>
                     <div class="text-center">
-                      <button type="submit" class="btn bg-dark text-white">
+                      <button type="submit" class="navy-blue-hover-btn">
                         Add Review
                       </button>
                     </div>
@@ -66,11 +66,11 @@
             </h6>
             <p class="card-text">{{ review.comment }}</p>
             {% if user.is_authenticated and user == review.user %}
-            <a class="btn btn-primary" href="{% url 'movies.edit_review' id=template_data.movie.id review_id=review.id %}">Edit</a>
-            <a class="btn btn-danger" href="{% url 'movies.delete_review' id=template_data.movie.id review_id=review.id %}">Delete</a>
+            <a class="navy-blue-hover-btn" href="{% url 'movies.edit_review' id=template_data.movie.id review_id=review.id %}">Edit</a>
+            <a class="red-hover-btn" href="{% url 'movies.delete_review' id=template_data.movie.id review_id=review.id %}">Delete</a>
             {% endif %}
             {% if user.is_authenticated and user != review.user %}
-            <a class="btn btn-danger" href="{% url 'movies.report_review' id=template_data.movie.id review_id=review.id %}">Report</a>
+            <a class="red-hover-btn" href="{% url 'movies.report_review' id=template_data.movie.id review_id=review.id %}">Report</a>
             {% endif %}
           </li>
           {% endif %}
