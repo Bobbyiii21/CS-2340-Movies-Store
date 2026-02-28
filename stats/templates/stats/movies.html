@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div class="p-3">
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col mx-auto mb-3">
+        <h2>Movies</h2>
+        <hr />
+      </div>
+    </div>
+    <p><i>Select a column to sort by its values.</i></p>
+    <div class="row m-1">
+      <table class="table table-bordered table-striped text-center">
+        <thead>
+          <tr>
+            <!--I'd recommend copying this stuff below and just replacing the fields for users-->
+            <th scope="col" onclick="sortby('id')">ID</th>
+            <th scope="col" onclick="sortby('name')">Name</th>
+            <th scope="col" onclick="sortby('purchases')">Purchases</th>
+            <th scope="col" onclick="sortby('revenue')">Revenue</th>
+            <th scope="col" onclick="sortby('reviews')">Reviews</th>
+          </tr>
+        </thead>
+        <tbody id="table-values">
+          {% for movie in template_data.movies %}
+          <tr id="table-row">
+            <td id="td1">{{ movie.movie.id }}</td>
+            <td id="td2">{{ movie.movie.name }}</td>
+            <td id="td3">{{ movie.purchases }}</td>
+            <td id="td4">${{ movie.revenue }}</td>
+            <td id="td5">{{ movie.reviews }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+const tableBody = document.getElementById('table-values');
+const tableValues = document.querySelectorAll('#table-row');
+
+//Don't change anything through renderTable (except for the tableData dict entries)
+let tableData = [];
+tableValues.forEach(row => {
+  //console.log(row.querySelector('#td2').innerHTML);
+  tableData.push({
+    id: row.querySelector('#td1').innerHTML,
+    name: row.querySelector('#td2').innerHTML,
+    purchases: row.querySelector('#td3').innerHTML,
+    revenue: row.querySelector('#td4').innerHTML,
+    reviews: row.querySelector('#td5').innerHTML
+  })
+});
+console.log(tableData[3]);
+
+function renderTable(data) {
+  tableBody.innerHTML = '';
+  data.forEach(row => {
+    let newRow = document.createElement("tr");
+    newRow.id = "table-row";
+    let colCount = 1;
+    Object.values(row).forEach(value => {
+      let cell = document.createElement("td")
+      cell.innerText = value;
+      cell.id = 'td'+colCount;
+      colCount++;
+      newRow.appendChild(cell);
+    });
+    tableBody.appendChild(newRow);
+  });
+}
+
+let sortDirection = {};
+
+function sortby(method) {
+  const sortedData = tableData.sort((a, b) => {
+    if (method == 'name') {
+      // For strings
+      const valA = a[method];
+      const valB = b[method];
+      return valA.localeCompare(valB);
+    } else {
+      const valA = +a[method].replace('$',''); //Replace is to handle the $ in front of revenue, the plus sign in front convert the string to an int
+      const valB = +b[method].replace('$','');
+      if (method == 'id') {
+        //Lowest number to highest number
+        return valA - valB;
+      }
+      //Highest number to lowest number (used for purchases, revenue, and reviews)
+      return valB - valA;
+    }
+  });
+  renderTable(sortedData);
+}
+
+
+</script>
+{% endblock content %}
