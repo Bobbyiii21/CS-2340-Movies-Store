@@ -3,6 +3,8 @@ from django.shortcuts import get_object_or_404, redirect
 from movies.models import Movie, Review
 from cart.models import Item
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.db.models import Count
 
 def index(request):
     template_data = {}
@@ -10,10 +12,13 @@ def index(request):
     return render(request, 'stats/index.html', {'template_data': template_data})
 
 def users(request):
-    template_data = {}
-    template_data['title'] = 'Stats'
-    template_data['movies'] = Movie.objects.all()
-    return render(request, 'stats/users.html', {'template_data': template_data})
+    template_data = {'title' : 'Users'}
+    template_data['users'] = []
+    users_with_counts = (User.objects.annotate(commentCount=Count('review')).order_by("-commentCount"))
+    for u in users_with_counts:
+        template_data['users'].append({'user': u, 'count': u.commentCount})
+    return render(request,'stats/users.html',{'template_data': template_data})
+    
 
 def movies(request):
     template_data = {}
