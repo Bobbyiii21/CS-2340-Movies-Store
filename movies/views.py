@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Movie, Review
 from django.contrib.auth.decorators import login_required
 
+DEFAULT_RATING = 1
+
 def index(request):
     search_term = request.GET.get('search')
     if search_term:
@@ -21,12 +23,13 @@ def show(request, id):
     template_data['title'] = movie.name
     template_data['movie'] = movie
     template_data['reviews'] = reviews
+    template_data['default_rating'] = DEFAULT_RATING
     template_data['average_rating'] = round(reviews.aggregate(Avg('rating'))['rating__avg'], 1)
     return render(request, 'movies/show.html', {'template_data': template_data})
 
 @login_required
 def create_review(request, id):
-    if request.method == 'POST' and request.POST['comment'] != '':
+    if request.method == 'POST':
         movie = Movie.objects.get(id=id)
         review = Review()
         review.comment = request.POST['comment']
@@ -50,7 +53,7 @@ def edit_review(request, id, review_id):
         template_data['title'] = 'Edit Review'
         template_data['review'] = review
         return render(request, 'movies/edit_review.html', {'template_data': template_data})
-    elif request.method == 'POST' and request.POST['comment'] != '':
+    elif request.method == 'POST':
         review = Review.objects.get(id=review_id)
         review.comment = request.POST['comment']
         review.rating = request.POST['rating']
