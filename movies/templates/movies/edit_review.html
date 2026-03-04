@@ -11,6 +11,28 @@
           <p>
             <label for="comment">Comment:</label>
             <textarea name="comment" required class="form-control" id="comment">{{ template_data.review.comment }}</textarea>
+            <input type="hidden" name="rating" id="rating-input" value="{{ template_data.review.rating }}">
+            <div class="star-rating">
+              {% for i in "12345" %}
+                <span class="star" data-value="{{ forloop.counter }}"
+                      style="cursor:pointer; font-size:2rem; color: {% if template_data.review.rating >= forloop.counter %}#b3a369{% else %}lightGray{% endif %};">
+                  ★
+                </span>
+              {% endfor %}
+              <script>
+                document.querySelectorAll('.star').forEach(star => {
+                  star.addEventListener('click', () => {
+                    const score = parseInt(star.dataset.value);
+                    document.getElementById('rating-input').value = score;
+
+                    // Update star colors
+                    document.querySelectorAll('.star').forEach((s, i) => {
+                      s.style.color = i < score ? '#b3a369' : 'lightGray';
+                    });
+                  });
+                });
+              </script>
+            </div>
           </p>
           <div class="text-start">
             <button type="submit" class="btn bg-dark text-white">Save Changes</button>

@@ -9,6 +9,9 @@
         <hr />
         <p><b>Description:</b> {{ template_data.movie.description }}</p>
         <p><b>Price:</b> ${{ template_data.movie.price }}</p>
+        {% if template_data.reviews %}
+          <p><b>Average Rating:</b> {{ template_data.average_rating }} ★</p>
+        {% endif %}
         <p class="card-text">
           <form method="post" action="{% url 'cart.add' id=template_data.movie.id %}">
             <div class="row">
@@ -40,6 +43,28 @@
                       <label for="comment">Comment:</label>
                       <textarea name="comment" required class="form-control" id="comment"></textarea>
                     </p>
+                    <input type="hidden" name="rating" id="rating-input" value="{{ user_rating }}">
+                    <div class="star-rating">
+                      {% for i in "12345" %}
+                        <span class="star" data-value="{{ forloop.counter }}"
+                              style="cursor:pointer; font-size:2rem; color: {% if user_rating >= forloop.counter %}#b3a369{% else %}lightGray{% endif %};">
+                          ★
+                        </span>
+                      {% endfor %}
+                      <script>
+                        document.querySelectorAll('.star').forEach(star => {
+                          star.addEventListener('click', () => {
+                            const score = parseInt(star.dataset.value);
+                            document.getElementById('rating-input').value = score;
+
+                            // Update star colors
+                            document.querySelectorAll('.star').forEach((s, i) => {
+                              s.style.color = i < score ? '#b3a369' : 'lightGray';
+                            });
+                          });
+                        });
+                      </script>
+                    </div>
                     <div class="text-center">
                       <button type="submit" class="navy-blue-hover-btn">
                         Add Review
@@ -65,6 +90,15 @@
               {{ review.date }}
             </h6>
             <p class="card-text">{{ review.comment }}</p>
+            <div>
+              <div class="star-rating-display mb-3">
+                {% for i in "12345" %}
+                  <span class="display-star" style="font-size:1.25rem; color: {% if review.rating >= forloop.counter %}#b3a369{% else %}lightGray{% endif %};">
+                    ★
+                  </span>
+                {% endfor %}
+              </div>
+            </div>
             {% if user.is_authenticated and user == review.user %}
             <a class="navy-blue-hover-btn" href="{% url 'movies.edit_review' id=template_data.movie.id review_id=review.id %}">Edit</a>
             <a class="red-hover-btn" href="{% url 'movies.delete_review' id=template_data.movie.id review_id=review.id %}">Delete</a>
