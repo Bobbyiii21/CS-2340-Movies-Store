@@ -41,13 +41,13 @@
                     {% csrf_token %}
                     <p>
                       <label for="comment">Comment:</label>
-                      <textarea name="comment" required class="form-control" id="comment"></textarea>
+                      <textarea name="comment" class="form-control" id="comment"></textarea>
                     </p>
-                    <input type="hidden" name="rating" id="rating-input" value="{{ user_rating }}">
+                    <input type="hidden" name="rating" id="rating-input" value="{{ template_data.default_rating }}">
                     <div class="star-rating">
                       {% for i in "12345" %}
                         <span class="star" data-value="{{ forloop.counter }}"
-                              style="cursor:pointer; font-size:2rem; color: {% if user_rating >= forloop.counter %}#b3a369{% else %}lightGray{% endif %};">
+                              style="cursor:pointer; font-size:2rem; color: {% if template_data.default_rating >= forloop.counter %}#b3a369{% else %}lightGray{% endif %};">
                           ★
                         </span>
                       {% endfor %}
@@ -89,7 +89,9 @@
             <h6 class="card-subtitle mb-2 text-muted">
               {{ review.date }}
             </h6>
-            <p class="card-text">{{ review.comment }}</p>
+            {% if review.comment != "" %}
+              <p class="card-text">{{ review.comment }}</p>
+            {% endif %}
             <div>
               <div class="star-rating-display mb-3">
                 {% for i in "12345" %}

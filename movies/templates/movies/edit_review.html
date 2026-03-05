@@ -10,7 +10,7 @@
           {% csrf_token %}
           <p>
             <label for="comment">Comment:</label>
-            <textarea name="comment" required class="form-control" id="comment">{{ template_data.review.comment }}</textarea>
+            <textarea name="comment" class="form-control" id="comment">{{ template_data.review.comment }}</textarea>
             <input type="hidden" name="rating" id="rating-input" value="{{ template_data.review.rating }}">
             <div class="star-rating">
               {% for i in "12345" %}
