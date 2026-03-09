@@ -9,7 +9,7 @@
         <hr />
       </div>
     </div>
-    <p><i>Select a column to sort by its values.</i></p>
+    <p><i>Select a column to sort by its values. Select a user to see their purchases.</i></p>
     <div class="row m-1">
       <table class="table table-bordered table-striped text-center">
         <thead>
@@ -18,14 +18,16 @@
             <th scope="col" onclick="sortby('id')">ID</th>
             <th scope="col" onclick="sortby('username')">Username</th>
             <th scope="col" onclick="sortby('comments')">Comments</th>
+            <th scope="col" onclick="sortby('movies_purchased')">Movies Purchased</th>
           </tr>
         </thead>
         <tbody id="table-values">
           {% for user in template_data.users %}
           <tr id="table-row">
             <td id="td1">{{ user.user.id }}</td>
-            <td id="td2">{{ user.user.username }}</td>
+            <td id="td2" onclick="location.href='{% url 'stats.see_orders' id=user.user.id %}'">{{ user.user.username }}</td>
             <td id="td3">{{ user.count }}</td>
+            <td id="td4">{{ user.movie_purchases }}</td>
           </tr>
           {% endfor %}
         </tbody>
@@ -45,6 +47,7 @@ tableValues.forEach(row => {
     id: row.querySelector('#td1').innerHTML,
     username: row.querySelector('#td2').innerHTML,
     comments: row.querySelector('#td3').innerHTML,
+    movies_purchased: row.querySelector('#td4').innerHTML,
   })
 });
 console.log(tableData[3]);
