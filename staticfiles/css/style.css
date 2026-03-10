@@ -1,0 +1,127 @@
+.bg-homepage{
+  background-image: url("/static/img/background.jpg");
+  background-color: white;
+  background-repeat: no-repeat;
+  background-attachment: local;
+  background-size: 100% auto;
+  background-position: center;
+  background-origin: border-box;
+}
+.homepage-banner-text{
+  text-shadow: 1px 1px #857437;
+  text-align: center;
+  color: white;
+}
+.navbar a.nav-link {
+  color: #b3a369 !important;
+}
+.bg-dark {
+  background-color: #003057 !important;
+}
+.ms-footer {
+  background-color: #003057;
+}
+.ms-footer p {
+  color: #a9a9a9;
+  font-size: 13px;
+}
+.ms-footer a:hover {
+  color: #9ce672;
+  text-decoration: none;
+}
+.ms-footer-bottom span{
+  font-size: 13px;
+  line-height: 38px;
+}
+.ms-footer-bottom a {
+  color: #9ce672;
+  text-decoration: none;
+}
+.ms-footer-bottom a:hover {
+  color: #fff;
+}
+.img-card-200 {
+    width: fit-content;
+    max-height: 200px;
+}
+.img-card-400 {
+    width: auto;
+    max-height: 400px;
+}
+
+html, body {
+  height: 100%;
+  margin: 0%
+}
+
+.navy-blue-hover-btn {
+  background-color: #003057;
+  border: none;
+  border-radius: 0.375rem;
+  color: white;
+  padding: 0.375rem 0.75rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s
+}
+
+.navy-blue-hover-btn:hover {
+  background-color: #20a0c7;
+  border: #003057;
+  box-shadow:0 8px 16px 0 rgba(0,0,0,0.2)
+}
+
+.tech-gold-hover-btn {
+  background-color: #b3a369;
+  border: none;
+  border-radius: 0.375rem;
+  color: white;
+  padding: 0.375rem 0.75rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s
+}
+
+.tech-gold-hover-btn:hover {
+  background-color: #857437;
+  border: #a4925a;
+  box-shadow:0 8px 16px 0 rgba(0,0,0,0.2)
+}
+
+.hollow-btn {
+  border: 1px solid #003057;
+  border-radius: 0.375rem;
+  color: #003057;
+  padding: 0.375rem 0.75rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+  cursor: default;
+}
+
+.red-hover-btn {
+  background-color: rgb(255, 58, 58);
+  border: none;
+  border-radius: 0.375rem;
+  color: white;
+  padding: 0.375rem 0.75rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s
+}
+
+.red-hover-btn:hover {
+  background-color: rgb(196, 44, 44);
+  border: rgb(255, 58, 58);
+  box-shadow:0 8px 16px 0 rgba(0,0,0,0.2)
+}

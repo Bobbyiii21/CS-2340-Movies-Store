@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404, redirect
-from movies.models import Movie
+from movies.models import Movie, RegionalMovieStat
 from .models import Order, Item
 from django.contrib.auth.decorators import login_required
 from .utils import calculate_cart_total
@@ -42,13 +42,20 @@ def purchase(request):
     order.user = request.user
     order.total = cart_total
     order.save()
+    user_region = ''
+    if hasattr(request.user, 'profile') and request.user.profile.region:
+        user_region = request.user.profile.region
     for movie in movies_in_cart:
-        item = Item()
-        item.movie = movie
-        item.price = movie.price
-        item.order = order
-        item.quantity = cart[str(movie.id)]
-        item.save()
+        quantity = int(cart[str(movie.id)])
+        Item(movie=movie, price=movie.price,
+             order=order, quantity=quantity).save()
+        if user_region:
+            stat, _ = RegionalMovieStat.objects.get_or_create(
+                movie=movie,
+                region=user_region,
+            )
+            stat.purchase_count += quantity
+            stat.save()
     request.session['cart'] = {}
     template_data = {}
     template_data['title'] = 'Purchase confirmation'

@@ -125,3 +125,16 @@ html, body {
   border: rgb(255, 58, 58);
   box-shadow:0 8px 16px 0 rgba(0,0,0,0.2)
 }
+
+.region rect {
+    transition: fill 0.2s;
+  }
+  .region:hover > rect:last-of-type {
+    fill: rgba(0, 48, 87, 0.30);
+    stroke: #b3a369 !important;
+  }
+  .region.active > rect:last-of-type {
+    fill: rgba(179, 163, 105, 0.40);
+    stroke: #b3a369 !important;
+    stroke-width: 3px;
+  }

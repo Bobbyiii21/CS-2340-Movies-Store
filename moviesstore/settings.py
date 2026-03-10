@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'accounts',
     'cart',
     'stats',
+    'map',
 ]
 
 MIDDLEWARE = [
@@ -124,8 +125,13 @@ STATIC_URL = 'static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'moviesstore' / 'static',
+]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "moviesstore\static\\")]
+
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

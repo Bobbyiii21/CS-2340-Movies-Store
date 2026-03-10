@@ -1,6 +1,7 @@
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.contrib.auth.models import User
+from accounts.models import REGION_CHOICES
 
 class Movie(models.Model):
     id = models.AutoField(primary_key=True)
@@ -21,3 +22,14 @@ class Review(models.Model):
     is_reported = models.BooleanField(db_default=False)
     def __str__(self):
         return str(self.id) + ' - ' + self.movie.name
+
+class RegionalMovieStat(models.Model):
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='regional_stats')
+    region = models.CharField(max_length=50, choices=REGION_CHOICES)
+    purchase_count = models.IntegerField(default=0)
+
+    class Meta:
+        unique_together = ('movie', 'region')
+
+    def __str__(self):
+        return f"{self.movie.name} – {self.region}: {self.purchase_count}"
