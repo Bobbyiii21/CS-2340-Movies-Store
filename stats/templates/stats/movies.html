@@ -10,6 +10,7 @@
       </div>
     </div>
     <p><i>Select a column to sort by its values.</i></p>
+    <p><i>Select a movie's name to view its page.</i></p>
     <div class="row m-1">
       <table class="table table-bordered table-striped text-center">
         <thead>
@@ -20,16 +21,18 @@
             <th scope="col" onclick="sortby('purchases')">Purchases</th>
             <th scope="col" onclick="sortby('revenue')">Revenue</th>
             <th scope="col" onclick="sortby('reviews')">Reviews</th>
+            <th scope="col" onclick="sortby('average_rating')">Avg. Rating</th>
           </tr>
         </thead>
         <tbody id="table-values">
           {% for movie in template_data.movies %}
           <tr id="table-row">
             <td id="td1">{{ movie.movie.id }}</td>
-            <td id="td2">{{ movie.movie.name }}</td>
+            <td id="td2" onclick="location.href='{% url 'movies.show' id=movie.movie.id %}'">{{ movie.movie.name }}</td>
             <td id="td3">{{ movie.purchases }}</td>
             <td id="td4">${{ movie.revenue }}</td>
             <td id="td5">{{ movie.reviews }}</td>
+            <td id="td6">{{ movie.average_rating }}</td>
           </tr>
           {% endfor %}
         </tbody>
@@ -51,10 +54,11 @@ tableValues.forEach(row => {
     name: row.querySelector('#td2').innerHTML,
     purchases: row.querySelector('#td3').innerHTML,
     revenue: row.querySelector('#td4').innerHTML,
-    reviews: row.querySelector('#td5').innerHTML
+    reviews: row.querySelector('#td5').innerHTML,
+    average_rating: row.querySelector('#td6').innerHTML,
+    url: row.querySelector('#td2').onclick
   })
 });
-console.log(tableData[3]);
 
 function renderTable(data) {
   tableBody.innerHTML = '';
@@ -63,11 +67,16 @@ function renderTable(data) {
     newRow.id = "table-row";
     let colCount = 1;
     Object.values(row).forEach(value => {
-      let cell = document.createElement("td")
-      cell.innerText = value;
-      cell.id = 'td'+colCount;
-      colCount++;
-      newRow.appendChild(cell);
+      if (colCount < 7) {
+        let cell = document.createElement("td")
+        cell.innerText = value;
+        cell.id = 'td'+colCount;
+        if (colCount == 2) {
+          cell.onclick = row.url;
+        }
+        colCount++;
+        newRow.appendChild(cell);
+      }
     });
     tableBody.appendChild(newRow);
   });
@@ -82,6 +91,11 @@ function sortby(method) {
       const valA = a[method];
       const valB = b[method];
       return valA.localeCompare(valB);
+    } else if (method == 'average_rating') {
+      // For floats
+      const valA = +a[method];
+      const valB = +b[method];
+      return valB - valA;
     } else {
       const valA = +a[method].replace('$',''); //Replace is to handle the $ in front of revenue, the plus sign in front convert the string to an int
       const valB = +b[method].replace('$','');
@@ -89,7 +103,7 @@ function sortby(method) {
         //Lowest number to highest number
         return valA - valB;
       }
-      //Highest number to lowest number (used for purchases, revenue, and reviews)
+      //Highest number to lowest number (used for purchases, revenue, reviews)
       return valB - valA;
     }
   });

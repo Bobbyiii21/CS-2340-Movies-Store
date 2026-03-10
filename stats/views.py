@@ -4,7 +4,7 @@ from movies.models import Movie, Review
 from cart.models import Item, Order
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.db.models import Count
+from django.db.models import Count, Avg
 
 def index(request):
     template_data = {}
@@ -45,8 +45,9 @@ def movies(request):
         purchase_amount = 0
         revenue = 0
         review_amount = len(reviews)
+        average_rating = round(reviews.aggregate(Avg('rating'))['rating__avg'], 1)
         for item in items:
             purchase_amount += item.quantity
             revenue += purchase_amount * movie_to_get.price
-        template_data['movies'].append({'movie': movie_to_get, 'purchases': purchase_amount, 'revenue': revenue, 'reviews': review_amount})
+        template_data['movies'].append({'movie': movie_to_get, 'purchases': purchase_amount, 'revenue': revenue, 'reviews': review_amount, 'average_rating': average_rating})
     return render(request, 'stats/movies.html', {'template_data': template_data})
