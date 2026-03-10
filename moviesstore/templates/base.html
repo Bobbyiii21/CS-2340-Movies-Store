@@ -29,6 +29,7 @@
             {% endif %}
             <a class="nav-link" href="{% url 'home.about' %}">About</a>
             <a class="nav-link" href="{% url 'movies.index' %}">Movies</a>
+            <a class="nav-link" href="{% url 'map.index' %}">Map</a>
             {% if user.is_authenticated %}
             <a class="nav-link" href="{% url 'cart.index' %}"><img src="{% static 'img/cart.png' %}" alt="Cart" height="25" /></a>
             {% endif %}

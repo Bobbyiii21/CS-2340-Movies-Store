@@ -1,0 +1,676 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="container my-4">
+  <div class="mb-4">
+    <h2 style="color: #003057; font-weight: 700">Local Popularity Map</h2>
+    <p class="text-muted">
+      Click a region on the map to see its trending movies.
+    </p>
+    <hr />
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-7">
+      <div class="card border-0 shadow-sm p-2">
+        <svg
+          viewBox="0 0 1016 514"
+          xmlns="http://www.w3.org/2000/svg"
+          style="width: 100%; height: auto; display: block"
+        >
+          <defs>
+            <clipPath id="clip-northamerica">
+              <rect x="90" y="30" width="220" height="230" rx="6" />
+            </clipPath>
+            <clipPath id="clip-southamerica">
+              <rect x="220" y="270" width="170" height="210" rx="6" />
+            </clipPath>
+            <clipPath id="clip-europe">
+              <rect x="450" y="30" width="160" height="160" rx="6" />
+            </clipPath>
+            <clipPath id="clip-africa">
+              <rect x="420" y="200" width="180" height="240" rx="6" />
+            </clipPath>
+            <clipPath id="clip-asia">
+              <rect x="615" y="30" width="350" height="240" rx="6" />
+            </clipPath>
+            <clipPath id="clip-australia">
+              <rect x="780" y="310" width="210" height="150" rx="6" />
+            </clipPath>
+          </defs>
+
+          <image
+            href="{% static 'img/world_map.svg' %}"
+            x="0"
+            y="0"
+            width="1016"
+            height="514"
+            preserveAspectRatio="xMidYMid meet"
+          />
+
+          <!-- ── NORTH AMERICA ── -->
+          <g
+            class="region"
+            id="zone-northamerica"
+            data-region="northamerica"
+            data-x="90"
+            data-y="30"
+            data-w="220"
+            data-h="230"
+            style="cursor: pointer"
+          >
+            <image
+              id="img-northamerica"
+              x="90"
+              y="30"
+              width="220"
+              height="180"
+              clip-path="url(#clip-northamerica)"
+              preserveAspectRatio="xMidYMid slice"
+              href=""
+              style="display: none"
+            />
+            <rect
+              x="90"
+              y="180"
+              width="220"
+              height="80"
+              rx="0"
+              fill="rgba(0,0,0,0.55)"
+              id="overlay-northamerica"
+              style="display: none"
+            />
+            <!-- Border -->
+            <rect
+              x="90"
+              y="30"
+              width="220"
+              height="230"
+              rx="6"
+              fill="transparent"
+              stroke="white"
+              stroke-width="2"
+            />
+            <text
+              x="200"
+              y="138"
+              text-anchor="middle"
+              fill="white"
+              font-size="14"
+              font-weight="bold"
+              font-family="sans-serif"
+              pointer-events="none"
+              style="text-shadow: 1px 1px 3px #000"
+              id="title-northamerica"
+            >
+              North America
+            </text>
+            <text
+              x="200"
+              y="222"
+              text-anchor="middle"
+              fill="white"
+              font-size="10"
+              font-weight="bold"
+              font-family="sans-serif"
+              pointer-events="none"
+              style="text-shadow: 1px 1px 3px #000"
+              id="movie-name-northamerica"
+            ></text>
+            <text
+              x="200"
+              y="238"
+              text-anchor="middle"
+              fill="#f59e0b"
+              font-size="10"
+              font-family="sans-serif"
+              pointer-events="none"
+              style="text-shadow: 1px 1px 2px #000"
+              id="map-label-northamerica"
+            ></text>
+          </g>
+
+          <!-- ── SOUTH AMERICA ── -->
+          <g
+            class="region"
+            id="zone-southamerica"
+            data-region="southamerica"
+            data-x="220"
+            data-y="270"
+            data-w="170"
+            data-h="210"
+            style="cursor: pointer"
+          >
+            <image
+              id="img-southamerica"
+              x="220"
+              y="270"
+              width="170"
+              height="160"
+              clip-path="url(#clip-southamerica)"
+              preserveAspectRatio="xMidYMid slice"
+              href=""
+              style="display: none"
+            />
+            <rect
+              x="220"
+              y="390"
+              width="170"
+              height="90"
+              rx="0"
+              fill="rgba(0,0,0,0.55)"
+              id="overlay-southamerica"
+              style="display: none"
+            />
+            <rect
+              x="220"
+              y="270"
+              width="170"
+              height="210"
+              rx="6"
+              fill="transparent"
+              stroke="white"
+              stroke-width="2"
+            />
+            <text
+              x="305"
+              y="368"
+              text-anchor="middle"
+              fill="white"
+              font-size="14"
+              font-weight="bold"
+              font-family="sans-serif"
+              pointer-events="none"
+              style="text-shadow: 1px 1px 3px #000"
+              id="title-southamerica"
+            >
+              South America
+            </text>
+            <text
+              x="305"
+              y="432"
+              text-anchor="middle"
+              fill="white"
+              font-size="10"
+              font-weight="bold"
+              font-family="sans-serif"
+              pointer-events="none"
+              style="text-shadow: 1px 1px 3px #000"
+              id="movie-name-southamerica"
+            ></text>
+            <text
+              x="305"
+              y="448"
+              text-anchor="middle"
+              fill="#f59e0b"
+              font-size="10"
+              font-family="sans-serif"
+              pointer-events="none"
+              style="text-shadow: 1px 1px 2px #000"
+              id="map-label-southamerica"
+            ></text>
+          </g>
+
+          <!-- ── EUROPE ── -->
+          <g
+            class="region"
+            id="zone-europe"
+            data-region="europe"
+            data-x="450"
+            data-y="30"
+            data-w="160"
+            data-h="160"
+            style="cursor: pointer"
+          >
+            <image
+              id="img-europe"
+              x="450"
+              y="30"
+              width="160"
+              height="110"
+              clip-path="url(#clip-europe)"
+              preserveAspectRatio="xMidYMid slice"
+              href=""
+              style="display: none"
+            />
+            <rect
+              x="450"
+              y="110"
+              width="160"
+              height="80"
+              rx="0"
+              fill="rgba(0,0,0,0.55)"
+              id="overlay-europe"
+              style="display: none"
+            />
+            <rect
+              x="450"
+              y="30"
+              width="160"
+              height="160"
+              rx="6"
+              fill="transparent"
+              stroke="white"
+              stroke-width="2"
+            />
+            <text
+              x="530"
+              y="108"
+              text-anchor="middle"
+              fill="white"
+              font-size="14"
+              font-weight="bold"
+              font-family="sans-serif"
+              pointer-events="none"
+              style="text-shadow: 1px 1px 3px #000"
+              id="title-europe"
+            >
+              Europe
+            </text>
+            <text
+              x="530"
+              y="152"
+              text-anchor="middle"
+              fill="white"
+              font-size="10"
+              font-weight="bold"
+              font-family="sans-serif"
+              pointer-events="none"
+              style="text-shadow: 1px 1px 3px #000"
+              id="movie-name-europe"
+            ></text>
+            <text
+              x="530"
+              y="168"
+              text-anchor="middle"
+              fill="#f59e0b"
+              font-size="10"
+              font-family="sans-serif"
+              pointer-events="none"
+              style="text-shadow: 1px 1px 2px #000"
+              id="map-label-europe"
+            ></text>
+          </g>
+
+          <!-- ── AFRICA ── -->
+          <g
+            class="region"
+            id="zone-africa"
+            data-region="africa"
+            data-x="420"
+            data-y="200"
+            data-w="180"
+            data-h="240"
+            style="cursor: pointer"
+          >
+            <image
+              id="img-africa"
+              x="420"
+              y="200"
+              width="180"
+              height="190"
+              clip-path="url(#clip-africa)"
+              preserveAspectRatio="xMidYMid slice"
+              href=""
+              style="display: none"
+            />
+            <rect
+              x="420"
+              y="360"
+              width="180"
+              height="80"
+              rx="0"
+              fill="rgba(0,0,0,0.55)"
+              id="overlay-africa"
+              style="display: none"
+            />
+            <rect
+              x="420"
+              y="200"
+              width="180"
+              height="240"
+              rx="6"
+              fill="transparent"
+              stroke="white"
+              stroke-width="2"
+            />
+            <text
+              x="510"
+              y="318"
+              text-anchor="middle"
+              fill="white"
+              font-size="14"
+              font-weight="bold"
+              font-family="sans-serif"
+              pointer-events="none"
+              style="text-shadow: 1px 1px 3px #000"
+              id="title-africa"
+            >
+              Africa
+            </text>
+            <text
+              x="510"
+              y="392"
+              text-anchor="middle"
+              fill="white"
+              font-size="10"
+              font-weight="bold"
+              font-family="sans-serif"
+              pointer-events="none"
+              style="text-shadow: 1px 1px 3px #000"
+              id="movie-name-africa"
+            ></text>
+            <text
+              x="510"
+              y="408"
+              text-anchor="middle"
+              fill="#f59e0b"
+              font-size="10"
+              font-family="sans-serif"
+              pointer-events="none"
+              style="text-shadow: 1px 1px 2px #000"
+              id="map-label-africa"
+            ></text>
+          </g>
+
+          <!-- ── ASIA ── -->
+          <g
+            class="region"
+            id="zone-asia"
+            data-region="asia"
+            data-x="615"
+            data-y="30"
+            data-w="350"
+            data-h="240"
+            style="cursor: pointer"
+          >
+            <image
+              id="img-asia"
+              x="615"
+              y="30"
+              width="350"
+              height="190"
+              clip-path="url(#clip-asia)"
+              preserveAspectRatio="xMidYMid slice"
+              href=""
+              style="display: none"
+            />
+            <rect
+              x="615"
+              y="190"
+              width="350"
+              height="80"
+              rx="0"
+              fill="rgba(0,0,0,0.55)"
+              id="overlay-asia"
+              style="display: none"
+            />
+            <rect
+              x="615"
+              y="30"
+              width="350"
+              height="240"
+              rx="6"
+              fill="transparent"
+              stroke="white"
+              stroke-width="2"
+            />
+            <text
+              x="790"
+              y="143"
+              text-anchor="middle"
+              fill="white"
+              font-size="14"
+              font-weight="bold"
+              font-family="sans-serif"
+              pointer-events="none"
+              style="text-shadow: 1px 1px 3px #000"
+              id="title-asia"
+            >
+              Asia
+            </text>
+            <text
+              x="790"
+              y="222"
+              text-anchor="middle"
+              fill="white"
+              font-size="10"
+              font-weight="bold"
+              font-family="sans-serif"
+              pointer-events="none"
+              style="text-shadow: 1px 1px 3px #000"
+              id="movie-name-asia"
+            ></text>
+            <text
+              x="790"
+              y="238"
+              text-anchor="middle"
+              fill="#f59e0b"
+              font-size="10"
+              font-family="sans-serif"
+              pointer-events="none"
+              style="text-shadow: 1px 1px 2px #000"
+              id="map-label-asia"
+            ></text>
+          </g>
+
+          <!-- ── AUSTRALIA ── -->
+          <g
+            class="region"
+            id="zone-australia"
+            data-region="australia"
+            data-x="780"
+            data-y="310"
+            data-w="210"
+            data-h="150"
+            style="cursor: pointer"
+          >
+            <image
+              id="img-australia"
+              x="780"
+              y="310"
+              width="210"
+              height="100"
+              clip-path="url(#clip-australia)"
+              preserveAspectRatio="xMidYMid slice"
+              href=""
+              style="display: none"
+            />
+            <rect
+              x="780"
+              y="390"
+              width="210"
+              height="70"
+              rx="0"
+              fill="rgba(0,0,0,0.55)"
+              id="overlay-australia"
+              style="display: none"
+            />
+            <rect
+              x="780"
+              y="310"
+              width="210"
+              height="150"
+              rx="6"
+              fill="transparent"
+              stroke="white"
+              stroke-width="2"
+            />
+            <text
+              x="885"
+              y="383"
+              text-anchor="middle"
+              fill="white"
+              font-size="14"
+              font-weight="bold"
+              font-family="sans-serif"
+              pointer-events="none"
+              style="text-shadow: 1px 1px 3px #000"
+              id="title-australia"
+            >
+              Australia
+            </text>
+            <text
+              x="885"
+              y="422"
+              text-anchor="middle"
+              fill="white"
+              font-size="10"
+              font-weight="bold"
+              font-family="sans-serif"
+              pointer-events="none"
+              style="text-shadow: 1px 1px 3px #000"
+              id="movie-name-australia"
+            ></text>
+            <text
+              x="885"
+              y="438"
+              text-anchor="middle"
+              fill="#f59e0b"
+              font-size="10"
+              font-family="sans-serif"
+              pointer-events="none"
+              style="text-shadow: 1px 1px 2px #000"
+              id="map-label-australia"
+            ></text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      <div
+        class="card border-0 shadow-sm h-100"
+        style="border-top: 4px solid #003057 !important"
+      >
+        <div class="card-body">
+          <h5
+            class="card-title fw-bold mb-3"
+            id="panelTitle"
+            style="color: #003057"
+          >
+            Select a Region
+          </h5>
+          <div id="panelContent">
+            <p class="text-muted text-center py-4">
+              Click any region on the map to see its trending movies.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const REGION_META = {
+    northamerica: { label: "North America" },
+    southamerica: { label: "South America" },
+    europe: { label: "Europe" },
+    asia: { label: "Asia" },
+    australia: { label: "Australia" },
+    africa: { label: "Africa" },
+  };
+
+  let allStats = null;
+  let activeRegion = null;
+
+  async function loadStats() {
+    const res = await fetch("{% url 'map.regional_stats' %}");
+    allStats = await res.json();
+    updateMapLabels();
+  }
+
+  function updateMapLabels() {
+    for (const key of Object.keys(REGION_META)) {
+      const movies = allStats?.[key]?.movies ?? [];
+      const top = movies[0];
+
+      const label = document.getElementById("map-label-" + key);
+      const movie_name = document.getElementById("movie-name-" + key);
+      const img = document.getElementById("img-" + key);
+      const overlay = document.getElementById("overlay-" + key);
+      const title = document.getElementById("title-" + key);
+
+      if (top) {
+        if (top.image_url && img) {
+          img.setAttribute("href", top.image_url);
+          img.style.display = "block";
+        }
+        if (overlay) {
+            overlay.style.display = "block";
+        }
+        if (title) { 
+            title.style.display = "none";
+        }
+        if (movie_name) {
+            movie_name.textContent = truncate(top.name, 20);
+        }
+        if (label) {
+            label.textContent = top.purchase_count + " sold";
+        }
+      } else {
+        if (label){
+            label.textContent = "";
+        }
+      }
+    }
+  }
+
+  function selectRegion(regionKey) {
+    activeRegion = regionKey;
+    const meta = REGION_META[regionKey];
+    const movies = allStats?.[regionKey]?.movies ?? [];
+
+    document
+      .querySelectorAll(".region")
+      .forEach((z) => z.classList.remove("active"));
+    document.getElementById("zone-" + regionKey)?.classList.add("active");
+
+    document.getElementById("panelTitle").textContent =
+      `${meta.label} — Trending Movies`;
+
+    const content = document.getElementById("panelContent");
+    if (movies.length === 0) {
+      content.innerHTML = `
+      <p class="text-muted text-center py-3">
+        No purchase data yet for this region.<br>
+        <small>Be the first to buy a movie here!</small>
+      </p>`;
+    } else {
+      const rows = movies
+        .map((m, i) => {
+          let badge;
+          if (i === 0) {
+            badge = `<span class="badge" style="background:#b3a369;color:#fff;min-width:32px;">#1</span>`;
+          } else if (i === 1) {
+            badge = `<span class="badge bg-secondary" style="min-width:32px;">#2</span>`;
+          } else if (i === 2) {
+            badge = `<span class="badge" style="background:#cd7f32;color:#fff;min-width:32px;">#3</span>`;
+          } else {
+            badge = `<span class="badge bg-light text-muted border" style="min-width:32px;">#${i + 1}</span>`;
+          }
+          return `
+        <li class="list-group-item d-flex align-items-center gap-2 px-2 py-2">
+          ${badge}
+          <span class="flex-grow-1 fw-semibold" style="font-size:0.9rem;">${m.name}</span>
+          <span class="badge rounded-pill"
+                style="background-color:#003057;color:white;font-size:0.75rem;">
+            ${m.purchase_count} sold
+          </span>
+        </li>`;
+        })
+        .join("");
+      content.innerHTML = `<ul class="list-group list-group-flush">${rows}</ul>`;
+    }
+  }
+
+  document.querySelectorAll(".region").forEach((zone) => {
+    zone.addEventListener("click", () => selectRegion(zone.dataset.region));
+  });
+
+  function truncate(str, n) {
+    return str.length > n ? str.slice(0, n) + "…" : str;
+  }
+
+  loadStats();
+</script>
+{% endblock content %}
