@@ -9,7 +9,7 @@
         <hr />
       </div>
     </div>
-    <p><i>Select a column to sort by its values. Select a user to see their purchases.</i></p>
+    <p><i>Select a column to sort by its values.</i></p><p><i>Select a user to see their purchases.</i></p>
     <div class="row m-1">
       <table class="table table-bordered table-striped text-center">
         <thead>
@@ -48,6 +48,7 @@ tableValues.forEach(row => {
     username: row.querySelector('#td2').innerHTML,
     comments: row.querySelector('#td3').innerHTML,
     movies_purchased: row.querySelector('#td4').innerHTML,
+    url: row.querySelector('#td2').onclick,
   })
 });
 console.log(tableData[3]);
@@ -59,15 +60,20 @@ function renderTable(data) {
     newRow.id = "table-row";
     let colCount = 1;
     Object.values(row).forEach(value => {
-      let cell = document.createElement("td")
-      cell.innerText = value;
-      cell.id = 'td'+colCount;
-      colCount++;
-      newRow.appendChild(cell);
+      if (colCount < 5) {
+        let cell = document.createElement("td")
+        cell.innerText = value;
+        cell.id = 'td'+colCount;
+        if (colCount == 2) {
+          cell.onclick = row.url;
+        }
+        colCount++;
+        newRow.appendChild(cell);
+      }
     });
     tableBody.appendChild(newRow);
   });
-}
+};
 
 let sortDirection = {};
 
